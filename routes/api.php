@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 use App\Http\Controllers\Api\MtgController;
 Route::get('/mtg/cards', [MtgController::class, 'getCards']);
 

@@ -13,12 +13,13 @@ class MtgController extends Controller
 
         if ($response->successful()) {
             $data = $response->json();
-            $cards = $data['data']['cards'] ?? [];  // Verifique se a API retorna 'cards'
+            \Log::info('Dados recebidos da API:', $data);  // 👈 Log para depuração
+            $cards = $data['data']['cards'] ?? [];
 
             return response()->json($cards);
         }
 
+        \Log::error('Erro ao obter dados da API externa');  // 👈 Log de erro
         return response()->json(['error' => 'Não foi possível obter os dados'], 500);
     }
 }
-
