@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+use App\Http\Controllers\Api\MtgController;
+Route::get('/mtg/cards', [MtgController::class, 'getCards']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

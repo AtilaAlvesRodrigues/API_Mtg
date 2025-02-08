@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('mtg_cards');
 });
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+//});
