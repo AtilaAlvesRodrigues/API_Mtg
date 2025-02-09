@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Cartas de Magic: The Gathering - 10ª Edição</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
-        .card { background: white; border: 1px solid #ccc; padding: 15px; margin: 10px; border-radius: 8px; display: inline-block; width: 200px; }
-        .card img { width: 100%; height: auto; }
-        h1 { text-align: center; }
-    </style>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="custom.css">
 </head>
-<body>
-    <h1>Cartas de Magic: The Gathering - 10ª Edição</h1>
-    <div id="cards"></div>
+<body class="bg-light py-4">
+    <div class="container">
+        <h1 class="text-center mb-4">Cartas de Magic: The Gathering - 10ª Edição</h1>
+        <div id="cards" class="row justify-content-center"></div>
+    </div>
 
     <script>
         fetch('/api/mtg/cards')
@@ -21,14 +23,18 @@
                 const cardsContainer = document.getElementById('cards');
                 data.forEach(card => {
                     const cardElement = document.createElement('div');
-                    cardElement.className = 'card';
+                    cardElement.className = 'col-md-3 mb-4';
 
                     cardElement.innerHTML = `
-                        <h3>${card.name}</h3>
-                        ${card.imageUrl ? `<img src="${card.imageUrl}" alt="${card.name}">` : ''}
-                        <p><strong>Tipo:</strong> ${card.type}</p>
-                        <p><strong>Raridade:</strong> ${card.rarity}</p>
-                        <p><strong>Custo de Mana:</strong> ${card.manaCost || 'N/A'}</p>
+                        <div class="card shadow-sm card-custom">
+                            ${card.imageUrl ? `<img src="${card.imageUrl}" class="card-img-top" alt="${card.name}">` : ''}
+                            <div class="card-body">
+                                <h5 class="card-title">${card.name}</h5>
+                                <p class="card-text"><strong>Tipo:</strong> ${card.type}</p>
+                                <p class="card-text"><strong>Raridade:</strong> ${card.rarity}</p>
+                                <p class="card-text"><strong>Custo de Mana:</strong> ${card.manaCost || 'N/A'}</p>
+                            </div>
+                        </div>
                     `;
 
                     cardsContainer.appendChild(cardElement);
@@ -36,5 +42,8 @@
             })
             .catch(error => console.error('Erro ao carregar as cartas:', error));
     </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html>  
