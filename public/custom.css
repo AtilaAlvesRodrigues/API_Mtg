@@ -44,11 +44,16 @@ h1 {
     border-bottom: 1px solid #ddd;
 }
 
-.card h3 {
+.card-title {
     margin: 10px;
     font-size: 1.1em;
     color: #222;
-    text-align: center;
+    text-align: center; /* Centraliza o nome da carta */
+    display: flex !important; /* Força o uso mesmo com o Bootstrap */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: center; /* Alinha horizontalmente */
+    min-height: 40px; /* Garante altura mínima para uniformidade */
+    padding: 0 5px; /* Pequeno espaço interno para nomes longos */
 }
 
 .card p {
