@@ -14,16 +14,44 @@ $(document).ready(function () {
     const defaultImageUrl = "URL_TO_DEFAULT_IMAGE"; // Certifique-se de ter uma imagem padrão
 
     // Carregar anime.js apenas se necessário
-    const animeCDN = document.createElement('script');
-    animeCDN.src = 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js';
-    animeCDN.type = 'text/javascript';
+    const animeCDN = document.createElement("script");
+    animeCDN.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js";
+    animeCDN.type = "text/javascript";
 
     animeCDN.onload = () => {
         fetchCards();
-    }
+    };
     document.head.appendChild(animeCDN);
 
-    setBackgroundColor("");
+    let hasShownImageLoadError = false;
+
+    function setBackgroundColor(color) {
+        let backgroundColor = "#d3d3d3"; // Default to grey
+
+        switch (color) {
+            case "w":
+                backgroundColor = "#efe2d1";
+                break;
+            case "u":
+                backgroundColor = "#b7d7e8";
+                break;
+            case "b":
+                backgroundColor = "#b0b0b0";
+                break;
+            case "r":
+                backgroundColor = "#e6c0c0";
+                break;
+            case "g":
+                backgroundColor = "#c6e3bd";
+                break;
+            case "colorless":
+                backgroundColor = "#d3d3d3";
+                break;
+        }
+
+        $("body").css("background-color", backgroundColor);
+    }
 
     function fetchCards() {
         $.ajax({
@@ -64,21 +92,43 @@ $(document).ready(function () {
         const filteredCards = cards.filter((card) => {
             if (!card) return false;
 
-            const nameMatch = !searchTermName || (card.name && card.name.toLowerCase().includes(searchTermName));
-            const typeMatch = !searchTermType || (card.type && card.type.toLowerCase().includes(searchTermType));
-            const manaCostMatch = !searchTermManaCost || (card.manaValue != null && card.manaValue.toString().includes(searchTermManaCost));
+            const nameMatch =
+                !searchTermName ||
+                (card.name && card.name.toLowerCase().includes(searchTermName));
+            const typeMatch =
+                !searchTermType ||
+                (card.type && card.type.toLowerCase().includes(searchTermType));
+            const manaCostMatch =
+                !searchTermManaCost ||
+                (card.manaValue != null &&
+                    card.manaValue.toString().includes(searchTermManaCost));
 
             let colorIdentityMatch = false;
 
             if (searchTermColor === "colorless") {
-                colorIdentityMatch = card.colorIdentity && card.colorIdentity.length === 0;
+                colorIdentityMatch =
+                    card.colorIdentity && card.colorIdentity.length === 0;
             } else {
-                colorIdentityMatch = !searchTermColor || (card.colorIdentity && card.colorIdentity.some((color) => color.toLowerCase().includes(searchTermColor)));
+                colorIdentityMatch =
+                    !searchTermColor ||
+                    (card.colorIdentity &&
+                        card.colorIdentity.some((color) =>
+                            color.toLowerCase().includes(searchTermColor)
+                        ));
             }
 
-            const keywordMatch = !searchTermKeyword || (card.text && card.text.toLowerCase().includes(searchTermKeyword));
+            const keywordMatch =
+                !searchTermKeyword ||
+                (card.text &&
+                    card.text.toLowerCase().includes(searchTermKeyword));
 
-            return nameMatch && typeMatch && manaCostMatch && colorIdentityMatch && keywordMatch;
+            return (
+                nameMatch &&
+                typeMatch &&
+                manaCostMatch &&
+                colorIdentityMatch &&
+                keywordMatch
+            );
         });
 
         if (filteredCards.length === 0) {
@@ -94,7 +144,9 @@ $(document).ready(function () {
         const paginatedCards = filteredCards.slice(startIndex, endIndex);
 
         paginatedCards.forEach((card, index) => {
-            const cardElement = $("<div>").addClass("card").css({ opacity: 0, transform: 'scale(0.8)' }); // Initial CSS for animation
+            const cardElement = $("<div>")
+                .addClass("card")
+                .css({ opacity: 0, transform: "scale(0.8)" }); // Initial CSS for animation
             const imageUrl = card.identifiers?.scryfallId
                 ? `https://api.scryfall.com/cards/${card.identifiers.scryfallId}/?format=image`
                 : defaultImageUrl;
@@ -102,12 +154,40 @@ $(document).ready(function () {
             const img = $("<img>")
                 .attr("src", imageUrl)
                 .addClass("card-img-top")
-                .attr("alt", card.name)
-                .on("error", function () {
-                    $(this).attr("src", defaultImageUrl);
+                .attr("alt", card.name);
+
+            img.on("load", function () {
+                // Image loaded successfully
+            });
+
+            img.on("error", function () {
+                $(this).off("error").attr("src", defaultImageUrl);
+                // If image fails to load, display card name
+                cardElement.text(card.name);
+                cardElement.css({
+                    display: "flex",
+                    "justify-content": "center",
+                    "align-items": "center",
+                    "font-size": "1em",
+                    "font-weight": "bold",
+                    color: "#555",
+                    "text-align": "center",
                 });
 
-            const cardImgContainer = $("<div>").addClass("card-img-container").append(img);
+                if (!hasShownImageLoadError) {
+                    Swal.fire({
+                        title: "Erro ao Carregar Imagens",
+                        text: "Houve um problema ao carregar as imagens das cartas. Por favor, verifique sua conexão com a internet ou tente novamente mais tarde.",
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
+                    hasShownImageLoadError = true;
+                }
+            });
+
+            const cardImgContainer = $("<div>")
+                .addClass("card-img-container")
+                .append(img);
             cardElement.append(cardImgContainer);
 
             cardElement.on("click", (e) => {
@@ -121,7 +201,7 @@ $(document).ready(function () {
                 scale: 1,
                 duration: 500,
                 delay: index * 50,
-                easing: 'easeOutQuad'
+                easing: "easeOutQuad",
             });
 
             cardContainer.append(cardElement);
@@ -134,20 +214,36 @@ $(document).ready(function () {
         const totalPages = Math.ceil(totalCards / cardsPerPage);
         let paginationHtml = "";
 
-        const createPageItem = (page, text, className = "", disabled = false) => {
-            return `<li class="page-item ${className} ${disabled ? "disabled" : ""}">
+        const createPageItem = (
+            page,
+            text,
+            className = "",
+            disabled = false
+        ) => {
+            return `<li class="page-item ${className} ${
+                disabled ? "disabled" : ""
+            }">
                 <a class="page-link" href="#" data-page="${page}">${text}</a>
             </li>`;
         };
 
-        paginationHtml += createPageItem(currentPage - 1, "&laquo;", "", currentPage === 1);
+        paginationHtml += createPageItem(
+            currentPage - 1,
+            "&laquo;",
+            "",
+            currentPage === 1
+        );
 
         let startPage = Math.max(1, currentPage - 5);
         let endPage = Math.min(totalPages, currentPage + 4);
 
         if (totalPages <= 10) {
             for (let i = 1; i <= totalPages; i++) {
-                paginationHtml += createPageItem(i, i, i === currentPage ? "active" : "");
+                paginationHtml += createPageItem(
+                    i,
+                    i,
+                    i === currentPage ? "active" : ""
+                );
             }
         } else {
             if (currentPage > 6) {
@@ -158,7 +254,11 @@ $(document).ready(function () {
             }
 
             for (let i = startPage; i <= endPage; i++) {
-                paginationHtml += createPageItem(i, i, i === currentPage ? "active" : "");
+                paginationHtml += createPageItem(
+                    i,
+                    i,
+                    i === currentPage ? "active" : ""
+                );
             }
 
             if (currentPage + 5 < totalPages) {
@@ -169,23 +269,13 @@ $(document).ready(function () {
             }
         }
 
-        paginationHtml += createPageItem(currentPage + 1, "&raquo;", "", currentPage === totalPages || totalPages === 0);
+        paginationHtml += createPageItem(
+            currentPage + 1,
+            "&raquo;",
+            "",
+            currentPage === totalPages || totalPages === 0
+        );
         pagination.html(paginationHtml);
-    }
-
-    function setBackgroundColor(color) {
-        let backgroundColor = "#d3d3d3"; // Default to grey
-
-        switch (color) {
-            case "w": backgroundColor = "#efe2d1"; break;
-            case "u": backgroundColor = "#b7d7e8"; break;
-            case "b": backgroundColor = "#b0b0b0"; break;
-            case "r": backgroundColor = "#e6c0c0"; break;
-            case "g": backgroundColor = "#c6e3bd"; break;
-            case "colorless": backgroundColor = "#d3d3d3"; break;
-        }
-
-        $("body").css("background-color", backgroundColor);
     }
 
     $("#clearFilters").on("click", () => {
@@ -203,7 +293,8 @@ $(document).ready(function () {
     pagination.on("click", "a", function (e) {
         e.preventDefault();
         const pageNumber = parseInt($(this).data("page"));
-        if (pageNumber && pageNumber > 0) {  // Verifica se o número da página é válido
+        if (pageNumber && pageNumber > 0) {
+            // Verifica se o número da página é válido
             currentPage = pageNumber;
             displayCards(allCards);
         }
@@ -241,26 +332,32 @@ $(document).ready(function () {
             : defaultImageUrl;
 
         const purchaseUrls = card.purchaseUrls || {};
-        const increasedImageWidth = '80%'; 
-        const increasedImageHeight = '64vh'; 
+        const increasedImageWidth = "80%";
+        const increasedImageHeight = "64vh";
 
         Swal.fire({
-            width: '90%',
-            height: '93%',
-            padding: '1em',
+            width: "90%",
+            height: "93%",
+            padding: "1em",
             showConfirmButton: false,
             showCloseButton: true,
             html: `
             <div style="position: relative; display: inline-block;">
-                <img src="${imageUrl}" class="custom-image" alt="${card.name}" style="max-width: ${increasedImageWidth}; max-height: ${increasedImageHeight};">
+                <img src="${imageUrl}" class="custom-image" alt="${
+                card.name
+            }" style="max-width: ${increasedImageWidth}; max-height: ${increasedImageHeight};">
                 
             </div>
             <div class="card-details">
                 <h2>${card.name}</h2>
                 <p>
-                    ${Object.entries(card.legalities).map(([format, status]) => {
-                        return `<span><strong>${format.charAt(0).toUpperCase() + format.slice(1)}:</strong> ${status}</span>`;
-                    }).join(' | ')}
+                    ${Object.entries(card.legalities)
+                        .map(([format, status]) => {
+                            return `<span><strong>${
+                                format.charAt(0).toUpperCase() + format.slice(1)
+                            }:</strong> ${status}</span>`;
+                        })
+                        .join(" | ")}
                 </p>
                 <div class="purchase-options-below">
                   <button class="purchase-icon-button" id="purchaseIconBelow">
@@ -270,27 +367,30 @@ $(document).ready(function () {
                       ${Object.entries(purchaseUrls)
                           .map(([name, url]) => {
                               if (url) {
-                                  const displayName = name.replace(/([A-Z])/g, ' $1').replace('card', 'Card').trim();
+                                  const displayName = name
+                                      .replace(/([A-Z])/g, " $1")
+                                      .replace("card", "Card")
+                                      .trim();
                                   return `<a href="${url}" target="_blank">${displayName}</a>`;
                               }
-                              return '';
+                              return "";
                           })
-                          .join('')}
+                          .join("")}
                   </div>
                 </div>
             </div>
         `,
             customClass: {
-                popup: 'custom-popup',
-                image: 'custom-image',
+                popup: "custom-popup",
+                image: "custom-image",
             },
             didOpen: () => {
                 // Event listener for purchase icon
-                
-                $('#purchaseIconBelow').on('click', function() {
-                  $('.purchase-links-below').slideToggle();
-              });
-            }
+
+                $("#purchaseIconBelow").on("click", function () {
+                    $(".purchase-links-below").slideToggle();
+                });
+            },
         });
     }
 });
