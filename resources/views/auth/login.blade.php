@@ -1,73 +1,110 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+<body class="font-sans antialiased bg-gray-100">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+        <div class="mb-6">
+            <!-- Logo Magic: The Gathering -->
+            <a href="/">
+                <img src="images/magic-logo.png" alt="Magic: The Gathering Logo"
+                    class="w-40 h-auto mx-auto bg-transparent object-contain opacity-80 hover:opacity-100 hover:shadow-2xl transition duration-300 ease-in-out">
+            </a>
+        </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+            <!-- Exibe Erros de Validação -->
+            @if ($errors->any())
+                <div class="mb-4">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="text-red-600 text-sm">{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-            </div>
+            @endif
+
+            <!-- Exibe Mensagem de Sessão -->
+            @if (session('status'))
+                <div class="mb-4 font-medium text-sm text-green-600">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <!-- Mensagem de erro para credenciais não correspondentes -->
+            @if ($errors->has('email') && $errors->first('email') == 'These credentials do not match our records.')
+                <div class="mb-4 font-medium text-sm text-red-600">
+                    {{ $errors->first('email') }}
+                </div>
+                <div class="flex items-center justify-end mt-4">
+                    <a href="{{ route('register') }}">
+                        <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Criar uma conta
+                        </button>
+                    </a>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input id="email"
+                        class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        type="email" name="email" value="{{ old('email') }}" required autofocus />
+                </div>
+
+                <div class="mt-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
+                    <input id="password"
+                        class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        type="password" name="password" required autocomplete="current-password" />
+                </div>
+
+                <div class="block mt-4">
+                    <label for="remember_me" class="flex items-center">
+                        <input id="remember_me" type="checkbox" name="remember"
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                            {{ old('remember') ? 'checked' : '' }}>
+                        <span class="ml-2 text-sm text-gray-600">Lembrar de mim</span>
+                    </label>
+                </div>
+
+                <div class="flex items-center justify-between mt-4">
+                    <!-- Botão Criar Conta alinhado à esquerda -->
+                    <a href="{{ route('register') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                        Criar conta
+                    </a>
+
+                    <!-- Botão Entrar alinhado à direita -->
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Entrar
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-end mt-2">
+                    @if (Route::has('password.request'))
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                            href="{{ route('password.request') }}">
+                            Esqueceu sua senha?
+                        </a>
+                    @endif
+                </div>
+            </form>
         </div>
     </div>
-</div>
-@endsection
+
+</body>
+
+</html>
