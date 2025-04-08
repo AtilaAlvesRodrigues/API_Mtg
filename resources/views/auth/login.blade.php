@@ -16,9 +16,10 @@
         <div class="mb-6">
             <!-- Logo Magic: The Gathering -->
             <a href="/">
-                <img src="images/magic-logo.png" alt="Magic: The Gathering Logo"
+                <img src="{{ asset('images/logo_magic.png') }}" alt="Magic: The Gathering Logo"
                     class="w-40 h-auto mx-auto bg-transparent object-contain opacity-80 hover:opacity-100 hover:shadow-2xl transition duration-300 ease-in-out">
             </a>
+
         </div>
 
         <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">

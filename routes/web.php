@@ -30,7 +30,7 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 // Rotas de autenticação padrão do Laravel
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Rota para a página home após o login
 Route::get('/home', [HomeController::class, 'index'])->name('home');
