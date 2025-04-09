@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -8,31 +9,52 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Importmap para carregar o módulo de tema -->
+    <script type="importmap">
+        {
+          "imports": {
+            "theme-toggle": "./js/theme-toggle.js"
+          }
+        }
+    </script>
+    <script type="module">
+        import 'theme-toggle';
+    </script>
 </head>
 
 <body>
+    <!-- Botão de tema no canto superior esquerdo -->
+    <div style="position: absolute; top: 10px; left: 10px;">
+        <button id="theme-toggle-btn-top-left" class="btn theme-toggle-trigger" title="Alternar tema"
+            style="background: none; border: none; padding: 0; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">
+            <!-- Ícone será carregado por theme-toggle.js -->
+        </button>
+    </div>
 
-    <!-- Barra de navegação com Login, Registro e Logout -->
-    <div class="container-fluid bg-light py-2">
-        <div class="d-flex justify-content-end">
-            @guest
-                <!-- Para visitantes não autenticados -->
-                <a href="/login" class="btn btn-primary me-2">Login</a>
-            @endguest
-
-            @auth
-                <!-- Para usuários autenticados -->
-                <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Logout</button>
-                </form>
-            @endauth
-        </div>
+    <!-- Botão de login/logout no canto superior direito -->
+    <div style="position: absolute; top: 10px; right: 10px;">
+        @guest
+            <a href="/login" class="btn btn-primary">Login</a>
+        @endguest
+        @auth
+            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        @endauth
     </div>
 
     <div class="container">
+        <!-- Logo -->
+        <div class="logo-container text-center my-3">
+            <a href="/">
+                <img src="images/logo_Magic.jpg" alt="Magic: The Gathering Logo" class="img-fluid" />
+            </a>
+        </div>
+
         <h1 class="text-center mb-4">Cartas de Magic: The Gathering - 10ª Edição</h1>
 
+        <!-- Barra de pesquisa -->
         <div class="search-bar">
             <input type="text" class="form-control mb-2" id="searchName" placeholder="Pesquisar por Nome da Carta">
             <input type="text" class="form-control mb-2" id="searchManaCost"
@@ -72,38 +94,33 @@
 
             <select class="form-control mb-2" id="searchColor">
                 <option value="">Pesquisar por Cor da Carta</option>
-                <option value="w">Branco</option>
-                <option value="u">Azul</option>
-                <option value="b">Preto</option>
-                <option value="r">Vermelho</option>
-                <option value="g">Verde</option>
-                <option value="colorless">Incolor</option>
+                <option value="w">Branco 🟡</option>
+                <option value="u">Azul 🔵</option>
+                <option value="b">Preto ⚫</option>
+                <option value="r">Vermelho 🔴</option>
+                <option value="g">Verde 🟢</option>
+                <option value="colorless">Incolor ⚪</option>
             </select>
-
         </div>
 
         <div class="text-center mt-3">
             <button id="clearFilters" class="btn btn-danger">Limpar Filtros</button>
         </div>
 
-        <div id="cardContainer" class="card-container">
-            <div style="position: relative; display: inline-block;">
-                <img src="${imageUrl}" class="custom-image" alt="${card.name}">
-
-            </div>
+        <div id="cardContainer" class="card-container mt-4">
+            <!-- Cards serão inseridos aqui via JS -->
         </div>
 
         <div class="d-flex justify-content-center mt-4">
             <nav aria-label="Page navigation">
-                <ul class="pagination" id="pagination">
-                </ul>
+                <ul class="pagination" id="pagination"></ul>
             </nav>
         </div>
     </div>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <!-- SweetAlert2 -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/main.js"></script>
 </body>

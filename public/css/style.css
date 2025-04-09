@@ -1,15 +1,329 @@
+:root {
+    /* Theme Variables - Default (Dark) */
+    --bg-color: #282c34;
+    --text-color: #f1f1f1;
+    --link-color: #6cafff;
+    --link-hover-color: #8dcaff;
+
+    --input-bg-color: #555;
+    --input-text-color: #f1f1f1;
+    --input-border-color: #666;
+    --input-focus-border-color: #888;
+    --input-focus-shadow-color: rgba(130, 138, 145, 0.5);
+    --input-placeholder-color: #bbb;
+    --select-arrow-color: white;
+
+    --card-placeholder-bg: #444;
+    --card-placeholder-text: #aaa;
+    --card-border: #666;
+
+    --popup-bg-color: rgba(40, 44, 52, 0.95);
+    --popup-text-color: #ddd;
+    --popup-title-color: #f1f1f1;
+    --popup-close-color: #f1f1f1;
+    --popup-close-hover-color: #fff;
+
+    --pagination-bg: #444;
+    --pagination-text: #f1f1f1;
+    --pagination-border: #555;
+    --pagination-hover-bg: #555;
+    --pagination-hover-text: #fff;
+    --pagination-active-bg: #0d6efd;
+    --pagination-active-border: #0d6efd;
+    --pagination-active-text: #fff;
+    --pagination-disabled-bg: #333;
+    --pagination-disabled-text: #aaa;
+    --pagination-disabled-border: #444;
+
+    --button-primary-bg: #0d6efd;
+    --button-primary-text: #fff;
+    --button-primary-border: #0d6efd;
+
+    --button-secondary-bg: #5c636a;
+    --button-secondary-text: #fff;
+    --button-secondary-border: #565e64;
+    --button-secondary-hover-bg: #494e53;
+    --button-secondary-hover-border: #44494d;
+
+    --button-danger-bg: #dc3545;
+    --button-danger-text: #fff;
+    --button-danger-border: #dc3545;
+
+    --button-info-bg: #0dcaf0;
+    --button-info-text: #000;
+    --button-info-border: #0dcaf0;
+    --button-info-hover-bg: #31d2f2;
+    --button-info-hover-border: #25cff2;
+
+    --button-outline-light-text: var(--text-color);
+    --button-outline-light-border: var(--text-color);
+    --button-outline-light-hover-text: var(--bg-color);
+    --button-outline-light-hover-bg: var(--text-color);
+    --button-outline-light-hover-border: var(--text-color);
+
+    --login-form-bg: rgba(68, 76, 86, 0.8);
+    --login-form-border: #666;
+
+    --theme-toggle-hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Light Theme Overrides */
+body.light-theme {
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --link-color: #0d6efd;
+    --link-hover-color: #0a58ca;
+
+    --input-bg-color: #fff;
+    --input-text-color: #212529;
+    --input-border-color: #ced4da;
+    --input-focus-border-color: #86b7fe;
+    --input-focus-shadow-color: rgba(13, 110, 253, 0.25);
+    --input-placeholder-color: #6c757d;
+    --select-arrow-color: black;
+
+    --card-placeholder-bg: #e9ecef;
+    --card-placeholder-text: #6c757d;
+    --card-border: #dee2e6;
+
+    --popup-bg-color: rgba(255, 255, 255, 0.98);
+    --popup-text-color: #212529;
+    --popup-title-color: #212529;
+    --popup-close-color: #6c757d;
+    --popup-close-hover-color: #212529;
+
+    --pagination-bg: #fff;
+    --pagination-text: #0d6efd;
+    --pagination-border: #dee2e6;
+    --pagination-hover-bg: #e9ecef;
+    --pagination-hover-text: #0d6efd;
+    --pagination-active-bg: #0d6efd;
+    --pagination-active-border: #0d6efd;
+    --pagination-active-text: #fff;
+    --pagination-disabled-bg: #fff;
+    --pagination-disabled-text: #6c757d;
+    --pagination-disabled-border: #dee2e6;
+
+    --button-primary-bg: #0d6efd;
+    --button-primary-text: #fff;
+    --button-primary-border: #0d6efd;
+
+    --button-secondary-bg: #6c757d;
+    --button-secondary-text: #fff;
+    --button-secondary-border: #6c757d;
+    --button-secondary-hover-bg: #5c636a;
+    --button-secondary-hover-border: #565e64;
+
+    --button-danger-bg: #dc3545;
+    --button-danger-text: #fff;
+    --button-danger-border: #dc3545;
+
+    --button-info-bg: #0dcaf0;
+    --button-info-text: #000;
+    --button-info-border: #0dcaf0;
+    --button-info-hover-bg: #31d2f2;
+    --button-info-hover-border: #25cff2;
+
+    --button-outline-light-text: #212529; /* Dark text */
+    --button-outline-light-border: #ced4da; /* Light border */
+    --button-outline-light-hover-text: #fff; /* White text */
+    --button-outline-light-hover-bg: #6c757d; /* Secondary bg */
+    --button-outline-light-hover-border: #6c757d; /* Secondary border */
+
+    --login-form-bg: rgba(233, 236, 239, 0.9); /* Lighter form bg */
+    --login-form-border: #ced4da;
+
+    --theme-toggle-hover-bg: rgba(0, 0, 0, 0.1);
+}
+
 /* Estilos gerais para o corpo da página */
 body {
     font-family: Arial, sans-serif;
-    transition: background-color 0.3s ease;
-    background-color: #f4f4f4;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Estilos para a barra de pesquisa */
-.search-bar {
-    margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
+.magic-logo {
+    width: 200px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.magic-logo:hover {
+    transform: scale(1.1);
+}
+
+/* --- Form Controls --- */
+.form-control,
+.search-bar input,
+.search-bar select {
+    background-color: var(--input-bg-color) !important;
+    color: var(--input-text-color) !important;
+    border: 1px solid var(--input-border-color) !important;
+    transition: background-color 0.3s ease, color 0.3s ease,
+        border-color 0.3s ease, box-shadow 0.15s ease-in-out;
+}
+
+.form-control::placeholder {
+    color: var(--input-placeholder-color) !important;
+    opacity: 1; /* Override bootstrap's default */
+}
+
+.form-control:focus {
+    border-color: var(--input-focus-border-color) !important;
+    box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color) !important;
+    background-color: var(
+        --input-bg-color
+    ) !important; /* Keep background on focus */
+    color: var(--input-text-color) !important; /* Keep text color on focus */
+}
+
+/* Apply to all select options */
+select.form-control option {
+    background-color: var(--input-bg-color); /* Match input background */
+    color: var(--input-text-color);
+}
+
+/* Custom Select Arrow */
+select.form-control {
+    appearance: none;
+    background-repeat: no-repeat !important;
+    background-position: right 0.7em top 50%, 0 0 !important;
+    background-size: 1.6em auto !important;
+    padding-right: 2.5em !important;
+}
+/* Separate rules for arrow color based on theme */
+body:not(.light-theme) select.form-control {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') !important;
+}
+body.light-theme select.form-control {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') !important;
+}
+
+/* Styles for form labels */
+.form-label {
+    color: var(--text-color);
+}
+
+/* Styles for form-check (checkboxes/radios) */
+.form-check-label {
+    color: var(--text-color);
+}
+
+.form-check-input {
+    background-color: var(--input-bg-color);
+    border-color: var(--input-border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.form-check-input:checked {
+    background-color: var(--button-primary-bg); /* Use primary button color */
+    border-color: var(--button-primary-bg);
+}
+
+.form-check-input:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
+}
+
+/* --- Links --- */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+/* --- Login Page Specific Styles --- */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.login-logo {
+    width: 100%; /* Make width responsive */
+    max-width: 450px; /* Match the max-width of the form container */
+    height: auto;
+}
+
+.login-form-container {
+    width: 100%;
+    max-width: 450px; /* Max width for the form */
+    margin-top: 1.5rem;
+    padding: 2rem;
+    background-color: var(--login-form-bg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid var(--login-form-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ensure login page links are styled correctly */
+.login-form-container a {
+    /* Inherits general link styles, override if needed */
+}
+.login-form-container a:hover {
+    /* Inherits general link styles, override if needed */
+}
+
+/* Center logo container contents */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative; /* Needed for absolute positioning of toggle button if required */
+}
+
+.login-logo {
+    width: 100%; /* Make width responsive */
+    max-width: 450px; /* Match the max-width of the form container */
+    height: auto;
+}
+/* Theme Toggle Button */
+.theme-toggle-trigger {
+    background: none;
+    border: none;
+    color: var(--text-color); /* Use variable */
+    cursor: pointer;
+    padding: 0; /* Remove padding */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 40px; /* Fixed size */
+    height: 40px; /* Fixed size */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    flex-shrink: 0; /* Prevent shrinking if container is tight */
+}
+.theme-toggle-trigger:hover {
+    background-color: var(--theme-toggle-hover-bg); /* Use variable */
+}
+.theme-toggle-trigger svg {
+    width: 24px; /* Icon size */
+    height: 24px; /* Icon size */
+    fill: currentColor; /* Make SVG inherit button color */
+}
+
+#theme-toggle-btn-top-left {
+    /* Add specific styles here if needed, e.g., different margin */
+}
+
+.theme-toggle-btn-login {
+    position: absolute; /* Position relative to logo-container */
+    left: 10px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 0; /* Remove margin if absolutely positioned */
 }
 
 /* Estilos para o container dos cards */
@@ -22,12 +336,19 @@ body {
     max-width: 950px;
 }
 
+/*Imagem logo*/
+.full-width-image {
+    display: block; /* Remove espaços indesejados abaixo da imagem */
+    width: 100%; /* Faz a imagem ocupar toda a largura da tela */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
 /* Estilos para cada card */
 .card {
     width: 23.5%;
     height: auto;
     margin: 5px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -35,12 +356,19 @@ body {
     color: inherit;
     cursor: pointer;
     max-width: 220px;
+    background-color: var(
+        --card-placeholder-bg
+    ); /* Use var for potential placeholder bg */
+    border: 1px solid var(--card-border); /* Use var for border */
+    border-radius: 4px; /* Consistent with Bootstrap cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease,
+        background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Efeito de hover nos cards */
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
 }
 
 /* Estilos para a imagem do card */
@@ -94,6 +422,30 @@ body {
     font-size: 0.8em;
 }
 
+/* Adjust pagination colors for dark background */
+.pagination .page-link {
+    background-color: var(--pagination-bg);
+    color: var(--pagination-text);
+    border-color: var(--pagination-border);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--pagination-hover-bg);
+    color: var(--pagination-hover-text);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--pagination-active-bg);
+    border-color: var(--pagination-active-border);
+    color: var(--pagination-active-text);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: var(--pagination-disabled-bg);
+    color: var(--pagination-disabled-text);
+    border-color: var(--pagination-disabled-border);
+}
+
 /* Ajustes responsivos */
 @media (max-width: 768px) {
     .card {
@@ -112,24 +464,80 @@ body {
     }
 }
 
-/* SweetAlert2 Styles */
+/* Adjust button colors if needed for better contrast */
+.btn-primary {
+    background-color: var(--button-primary-bg);
+    border-color: var(--button-primary-border);
+    color: var(--button-primary-text);
+}
+
+.btn-secondary {
+    background-color: var(--button-secondary-bg);
+    border-color: var(--button-secondary-border);
+    color: var(--button-secondary-text);
+}
+
+.btn-secondary:hover {
+    background-color: var(--button-secondary-hover-bg);
+    border-color: var(--button-secondary-hover-border);
+}
+
+.btn-danger {
+    background-color: var(--button-danger-bg);
+    border-color: var(--button-danger-border);
+    color: var(--button-danger-text);
+}
+
+.btn-info {
+    background-color: var(--button-info-bg);
+    border-color: var(--button-info-border);
+    color: var(--button-info-text);
+}
+
+.btn-info:hover {
+    background-color: var(--button-info-hover-bg);
+    border-color: var(--button-info-hover-border);
+}
+
+/* Adjust outline button colors for dark theme */
+.btn-outline-light {
+    color: var(--button-outline-light-text);
+    border-color: var(--button-outline-light-border);
+}
+
+.btn-outline-light:hover {
+    color: var(--button-outline-light-hover-text);
+    background-color: var(--button-outline-light-hover-bg);
+    border-color: var(--button-outline-light-hover-border);
+}
+
+/* SweetAlert2 Styles adjustments for dark theme */
 .swal2-popup {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: var(--popup-bg-color);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .swal2-title {
-    color: #333;
+    color: var(--popup-title-color);
     font-size: 2em;
     margin-bottom: 20px;
 }
 
 .swal2-content {
-    color: #555;
+    color: var(--popup-text-color);
     font-size: 1.2em;
     line-height: 1.6;
+}
+
+/* Ensure close button is visible */
+.swal2-close {
+    color: var(--popup-close-color);
+}
+
+.swal2-close:hover {
+    color: var(--popup-close-hover-color);
 }
 
 /* Custom styles for the popup */
@@ -149,7 +557,7 @@ body {
 .card-details {
     width: 100%;
     font-size: 14px;
-    color: #333;
+    color: var(--popup-text-color);
     padding-left: 20px;
     overflow-y: auto;
 }
@@ -198,9 +606,9 @@ body {
 }
 
 .purchase-links-below {
-    background-color: #f9f9f9;
+    background-color: #333;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
     padding: 12px 16px;
     z-index: 1;
     white-space: normal;
@@ -208,12 +616,17 @@ body {
 }
 
 .purchase-links-below a {
-    color: black;
+    color: var(--text-color);
     padding: 8px 16px;
     text-decoration: none;
     display: block;
 }
 
 .purchase-links-below a:hover {
-    background-color: #ddd;
+    background-color: #555;
+}
+
+/* Card Placeholder Text (when image fails) */
+.card[style*="display: flex"] {
+    color: var(--card-placeholder-text);
 }
