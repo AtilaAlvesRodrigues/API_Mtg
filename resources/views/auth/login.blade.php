@@ -20,45 +20,7 @@
             </a>
         </div>
 
-<<<<<<< HEAD
         <div class="login-form-container">
-=======
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-            <!-- Mensans de erros -->
-            <!-- Exibe Erros de Validação -->
-            @if ($errors->any())
-                <div class="mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="text-red-600 text-sm">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <!-- Exibe Mensagem de Sessão -->
-            @if (session('status'))
-                <div class="mb-4 font-medium text-sm text-green-600">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            <!-- Mensagem de erro para credenciais não correspondentes -->
-            @if ($errors->has('email') && $errors->first('email') == 'These credentials do not match our records.')
-                <div class="mb-4 font-medium text-sm text-red-600">
-                    {{ $errors->first('email') }}
-                </div>
-                <div class="flex items-center justify-end mt-4">
-                    <a href="{{ route('register') }}">
-                        <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Criar uma conta
-                        </button>
-                    </a>
-                </div>
-            @endif
-            
-            <!-- METHODO POST aqui -->
->>>>>>> 3e05e89031587f60c39a17a91382199ede54815c
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
