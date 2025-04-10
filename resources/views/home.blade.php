@@ -29,21 +29,20 @@
         <div class="logo-container text-center my-3">
             <a href="/">
                 <img src="images/logo_Magic.jpg" alt="Magic: The Gathering Logo" class="img-fluid" />
-        <!-- Botão de Login -->        
+                <!-- Botão de Login -->
                 <a href="/login" class="btn btn-primary" style="position: absolute; top: 10px; right: 10px;">
-                Login
-            </a>
-        <!-- Botão para mudar o theme -->
-            <div style="position: absolute; top: 10px; left: 10px;">
-        <button id="theme-toggle-btn-top-left" class="btn theme-toggle-trigger" title="Alternar tema"
-            style="background: none; border: none; padding: 0; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"
-            onmouseover="this.style.transform='scale(1.2)'" 
-            onmouseout="this.style.transform='scale(1)'">
+                    Login
+                </a>
+                <!-- Botão para mudar o theme -->
+                <div style="position: absolute; top: 10px; left: 10px;">
+                    <button id="theme-toggle-btn-top-left" class="btn theme-toggle-trigger" title="Alternar tema"
+                        style="background: none; border: none; padding: 0; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; transition: transform 0.3s ease;"
+                        onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
 
-             display: inline-flex; align-items: center; justify-content: center;">
-            <!-- Ícone será carregado por theme-toggle.js -->
-        </button>
-    </div> 
+                        display: inline-flex; align-items: center; justify-content: center;">
+                        <!-- Ícone será carregado por theme-toggle.js -->
+                    </button>
+                </div>
         </div>
 
         <h1 class="text-center mb-4">Cartas de Magic: The Gathering - 10ª Edição</h1>
