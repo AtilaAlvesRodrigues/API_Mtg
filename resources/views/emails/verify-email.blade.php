@@ -34,7 +34,7 @@
             alert('E-mail verificado com sucesso! Obrigado por se juntar à nossa comunidade.');
         }
 
-        // Simulate setting the user name (replace with actual user data)
+        // !Simulate setting the user name (replace with actual user data)
         document.getElementById('userName').textContent = 'João';
     </script>
 
